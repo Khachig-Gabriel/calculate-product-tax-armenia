@@ -1,6 +1,6 @@
 // Function to convert USD to AMD
 function convert(usd) {
-    return usd * 400;
+    return usd * 394;
 }
 
 // Function to calculate the tax based on the converted value
