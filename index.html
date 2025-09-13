@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate the total cost and taxes for importing products to Armenia. Enter USD and get the final price in AMD with tax details">
+    <title>Armenia Tax Calculator by Khachig Gabriel</title>
+    
+    <!-- Canonical URL for main page (redirects to English version) -->
+    <link rel="canonical" href="https://khachig-gabriel.github.io/product-tax/">
+    
+    <!-- Hreflang tags for multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="https://khachig-gabriel.github.io/product-tax/en.html">
+    <link rel="alternate" hreflang="hy" href="https://khachig-gabriel.github.io/product-tax/am.html">
+    <link rel="alternate" hreflang="ru" href="https://khachig-gabriel.github.io/product-tax/ru.html">
+    <link rel="alternate" hreflang="x-default" href="https://khachig-gabriel.github.io/product-tax/en.html">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Loading Screen -->
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="text-center">
+                <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h3 class="text-primary">Armenia Tax Calculator</h3>
+                <p class="text-muted">Redirecting to your preferred language...</p>
+                
+                <!-- Manual Language Selection (fallback) -->
+                <div class="mt-4">
+                    <p class="small text-muted mb-3">Or choose your language:</p>
+                    <div class="btn-group" role="group">
+                        <a href="en.html" class="btn btn-outline-primary">🇺🇸 English</a>
+                        <a href="am.html" class="btn btn-outline-primary">🇦🇲 Հայերեն</a>
+                        <a href="ru.html" class="btn btn-outline-primary">🇷🇺 Русский</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language detection and redirect logic
+        function detectLanguageAndRedirect() {
+            // Check if there's a language preference in localStorage
+            const savedLang = localStorage.getItem('preferredLanguage');
+            
+            // Check URL parameter first
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            
+            let targetLanguage = 'en'; // default
+            
+            if (langParam && ['en', 'hy', 'ru'].includes(langParam)) {
+                targetLanguage = langParam;
+            } else if (savedLang && ['en', 'hy', 'ru'].includes(savedLang)) {
+                targetLanguage = savedLang;
+            } else {
+                // Detect browser language
+                const browserLang = navigator.language.toLowerCase();
+                if (browserLang.startsWith('hy') || browserLang.startsWith('am')) {
+                    targetLanguage = 'hy';
+                } else if (browserLang.startsWith('ru')) {
+                    targetLanguage = 'ru';
+                }
+            }
+            
+            // Save preference
+            localStorage.setItem('preferredLanguage', targetLanguage);
+            
+            // Redirect to appropriate page
+            const redirectMap = {
+                'en': 'en.html',
+                'hy': 'am.html',
+                'ru': 'ru.html'
+            };
+            
+            // Add a small delay to show the loading screen
+            setTimeout(() => {
+                window.location.href = redirectMap[targetLanguage];
+            }, 800);
+        }
+        
+        // Run detection when page loads
+        document.addEventListener('DOMContentLoaded', detectLanguageAndRedirect);
+        
+        // Fallback: redirect after 3 seconds if automatic redirect fails
+        setTimeout(() => {
+            if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+                window.location.href = 'en.html';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
