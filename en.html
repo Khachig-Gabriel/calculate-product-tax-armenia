@@ -165,14 +165,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </main>
 
         <!-- Footer -->
-        <footer class="bg-dark text-white text-center py-4 mt-5">
-            <div class="container">
-                <p class="mb-0">&copy; 2025 Armenia Tax Calculator by Khachig Gabriel. All rights reserved.</p>
-                <p class="small text-warning mt-2">
-                    Exchange rates provided by Central Bank of Armenia (Official API)
-                </p>
-            </div>
-        </footer>
+       <footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-0">
+            &copy; <span id="year"></span> Armenia Tax Calculator by Khachig Gabriel. All rights reserved.
+        </p>
+        <p class="small text-warning mt-2">
+            Exchange rates provided by Central Bank of Armenia (Official API)
+        </p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
     </div>
 
     <!-- Bootstrap JS -->
@@ -183,4 +190,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src="script.js"></script>
 </body>
 </html>
+
 
