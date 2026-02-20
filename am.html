@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Հաշվեք ապրանքների ներմուծման արժեքն ու հարկերը Հայաստանում։ Մուտքագրեք ԱՄՆ դոլար և ստացեք վերջնական գինը հայկական դրամով։">
+    <title>Ապրանքի ներմուծման արժեքի հաշվիչ Հայաստում</title>
+    
+    <!-- Canonical URL for Armenian version -->
+    <link rel="canonical" href="https://khachig-gabriel.github.io/calculate-product-tax-armenia/am.html">
+    
+    <!-- Hreflang tags for multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="https://khachig-gabriel.github.io/calculate-product-tax-armenia/en.html">
+    <link rel="alternate" hreflang="hy" href="https://khachig-gabriel.github.io/calculate-product-tax-armenia/am.html">
+    <link rel="alternate" hreflang="ru" href="https://khachig-gabriel.github.io/calculate-product-tax-armenia/ru.html">
+    <link rel="alternate" hreflang="x-default" href="https://khachig-gabriel.github.io/calculate-product-tax-armenia/en.html">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header Section -->
+        <header class="text-center py-5 bg-primary text-white">
+            <div class="container">
+                <h1 class="display-4 fw-bold">
+                    <i class="fas fa-calculator me-3"></i>
+                    Ապրանքի ներմուծման արժեքի հաշվիչ
+                </h1>
+                <p class="lead mb-0">Խաչիկ Գաբրիելի կողմից</p>
+                <p class="small opacity-75">Հաշվարկեք ներմուծման հարկերը և ծախսերը Հայաստանի համար</p>
+                <!-- Armenian Flag Stripes -->
+                <div class="armenian-flag mt-3">
+                    <div class="flag-stripe flag-red"></div>
+                    <div class="flag-stripe flag-blue"></div>
+                    <div class="flag-stripe flag-orange"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <!-- Language Selector -->
+                    <div class="text-center mb-4">
+                        <div class="language-selector">
+                            <div class="btn-group" role="group" aria-label="Language Selection">
+                                <input type="radio" class="btn-check" name="language" id="lang-en" value="en">
+                                <label class="btn btn-outline-primary" for="lang-en">🇺🇸 English</label>
+                                
+                                <input type="radio" class="btn-check" name="language" id="lang-hy" value="hy" checked>
+                                <label class="btn btn-outline-primary" for="lang-hy">🇦🇲 Հայերեն</label>
+                                
+                                <input type="radio" class="btn-check" name="language" id="lang-ru" value="ru">
+                                <label class="btn btn-outline-primary" for="lang-ru">🇷🇺 Русский</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Calculator Card -->
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-gradient-primary text-white text-center py-4">
+                            <h2 class="h3 mb-0">
+                                <i class="fas fa-dollar-sign me-2"></i>
+                                Ներմուծման Հարկերի Հաշվիչ
+                            </h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Input Section -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="usdAmount" class="form-label fw-bold">
+                                        <i class="fas fa-coins me-2 text-warning"></i>
+                                        Գումարը ԱՄՆ դոլարով
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-warning text-dark">
+                                            <i class="fas fa-dollar-sign"></i>
+                                        </span>
+                                        <input type="number" 
+                                               class="form-control form-control-lg" 
+                                               id="usdAmount" 
+                                               placeholder="Մուտքագրեք ԱՄՆ դոլարի գումարը"
+                                               step="0.01"
+                                               min="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-end">
+                                    <button class="btn btn-primary btn-lg w-100" onclick="calculate()">
+                                        <i class="fas fa-calculator me-2"></i>
+                                        Հաշվարկել
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Exchange Rates Display -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="card bg-light border-0">
+                                        <div class="card-body text-center">
+                                            <h6 class="text-muted mb-2">ԱՄՆ դոլարից դրամ փոխարժեք</h6>
+                                            <div class="h4 text-primary mb-0" id="usdRate">--</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-light border-0">
+                                        <div class="card-body text-center">
+                                            <h6 class="text-muted mb-2">Եվրոյից դրամ փոխարժեք</h6>
+                                            <div class="h4 text-success mb-0" id="eurRate">--</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Results Section -->
+                            <div id="output" class="mt-4">
+                                <!-- Results will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Information Cards -->
+                    <div class="row mt-5">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-info-circle fa-3x text-info mb-3"></i>
+                                    <h5 class="card-title">Հարկի Շեմ</h5>
+                                    <p class="card-text">200 եվրոյից ցածր ներմուծումները հարկազուրկ են: Այս շեմից բարձր գումարների վրա գործում է 15% հարկ:</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-clock fa-3x text-warning mb-3"></i>
+                                    <h5 class="card-title">Փոխարժեքներ</h5>
+                                    <p class="card-text">Փոխարժեքները թարմացվում են ամեն աշխատանքային օր 15:45-16:00 Երեւանի ժամանակով:</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-4 mt-5">
+            <div class="container">
+                <p class="mb-0">&copy; <span id="year"></span> Հայաստանի Հարկերի Հաշվիչ Խաչիկ Գաբրիելի կողմից: Բոլոր իրավունքները պաշտպանված են: </p>
+                <p class="small text-warning mt-2">
+                    Փոխարժեքները տրամադրվում են Հայաստանի Կենտրոնական Բանկի կողմից (Պաշտոնական API)
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Languages -->
+    <script src="languages.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
