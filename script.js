@@ -224,57 +224,6 @@ function formatAMD(amount) {
     }).format(amount);
 }
 
-// Function to switch language and update URL
-function switchLanguage(lang) {
-    currentLanguage = lang;
-    
-    // If we're on a language-specific page, navigate to the appropriate page
-    const currentPath = window.location.pathname;
-    const currentPage = currentPath.split('/').pop().split('.')[0];
-    
-    // Map of languages to their file names
-    const languageFiles = {
-        'en': 'en.html',
-        'hy': 'am.html', 
-        'ru': 'ru.html'
-    };
-    
-    // If we're not already on the correct language page, navigate to it
-    if (lang !== 'en' && currentPage !== 'am' && currentPage !== 'ru') {
-        window.location.href = languageFiles[lang];
-        return;
-    } else if (lang === 'en' && (currentPage === 'am' || currentPage === 'ru')) {
-        window.location.href = 'en.html';
-        return;
-    } else if (lang === 'hy' && currentPage !== 'am') {
-        window.location.href = 'am.html';
-        return;
-    } else if (lang === 'ru' && currentPage !== 'ru') {
-        window.location.href = 'ru.html';
-        return;
-    }
-    
-    // If we're already on the correct page, just update content
-    updatePageLanguage();
-    updateURL(lang);
-}
-
-// Function to update URL with language parameter
-function updateURL(lang) {
-    const url = new URL(window.location);
-    
-    // Remove existing language parameter
-    url.searchParams.delete('lang');
-    
-    // Add new language parameter
-    if (lang !== 'en') { // Default language doesn't need parameter
-        url.searchParams.set('lang', lang);
-    }
-    
-    // Update URL without page reload
-    window.history.pushState({lang: lang}, '', url);
-}
-
 // Function to get language from URL or page
 function getLanguageFromURL() {
     // First check if we're on a language-specific page
@@ -309,25 +258,8 @@ function getLanguageFromURL() {
     return 'en'; // Default to English
 }
 
-//automatic year 
+//automatic year
 document.getElementById('year').textContent = new Date().getFullYear();
-
-// Function to handle browser back/forward buttons
-function handlePopState(event) {
-    const lang = event.state ? event.state.lang : getLanguageFromURL();
-    if (lang !== currentLanguage) {
-        currentLanguage = lang;
-        updatePageLanguage();
-        updateLanguageSelector(lang);
-    }
-}
-
-// Function to update language selector to match current language
-function updateLanguageSelector(lang) {
-    document.querySelectorAll('input[name="language"]').forEach(radio => {
-        radio.checked = (radio.value === lang);
-    });
-}
 
 // Function to update all text on the page based on current language
 function updatePageLanguage() {
@@ -392,31 +324,16 @@ function updatePageLanguage() {
 document.addEventListener('DOMContentLoaded', function() {
     // Get language from URL or browser settings
     currentLanguage = getLanguageFromURL();
-    
-    // Update language selector to match current language
-    updateLanguageSelector(currentLanguage);
-    
+
     // Update page content with current language
     updatePageLanguage();
-    
+
     // Update exchange rates on page load
     updateExchangeRates();
-    
-    // Add event listener for browser back/forward buttons
-    window.addEventListener('popstate', handlePopState);
-    
+
     // Add event listener for Enter key
     document.getElementById('usdAmount').addEventListener('keypress', handleKeyPress);
-    
-    // Add language switching event listeners
-    document.querySelectorAll('input[name="language"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.checked) {
-                switchLanguage(this.value);
-            }
-        });
-    });
-    
+
     // Add some interactive features
     const calculateBtn = document.querySelector('button[onclick="calculate()"]');
     calculateBtn.addEventListener('click', function() {
